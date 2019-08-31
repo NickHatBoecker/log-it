@@ -1,12 +1,31 @@
 <template>
     <div class="u-mt--medium">
         <v-container>
-            <v-btn color="primary" small class="u-mb--medium" @click="goBack()"><v-icon small>mdi-arrow-left</v-icon> Go back</v-btn>
+            <v-row no-gutters>
+                <v-col md="3">
+                    <v-btn color="primary" small class="u-mb--medium" @click="goBack()"><v-icon small>mdi-arrow-left</v-icon> Go back</v-btn>
+                    <v-btn
+                        color="info"
+                        small
+                        class="u-mb--medium"
+                        @click="scrollDownToEnd()"
+                        ref="scrollToEnd"
+                        :disabled="scrollToEndIsDisabled"
+                        v-if="activeLog"
+                    >
+                        <v-icon small>mdi-arrow-down</v-icon> Go to end
+                    </v-btn>
+                </v-col>
+                <v-col>
+                    <v-switch
+                        v-model="reloadAutomatically"
+                        color="primary"
+                        :label="reloadLabel"
+                    ></v-switch>
+                </v-col>
+            </v-row>
 
             <template v-if="activeLog">
-                <v-btn color="info" small class="u-mb--medium" @click="scrollDownToEnd()" ref="scrollToEnd" :disabled="scrollToEndIsDisabled">
-                    <v-icon small>mdi-arrow-down</v-icon> Go to end
-                </v-btn>
                 <h1>{{ activeLog.path }}</h1>
                 <table class="c-log u-mt" @scroll="checkScrolling" ref="logContent">
                     <tr v-for="line in activeLogContent" :key="line.number">
@@ -32,28 +51,32 @@ export default {
             scrollToEndIsDisabled: false,
             logPath: '',
             refreshIntervalId: '',
+            reloadAutomatically: true,
         }
+    },
+
+    computed: {
+        reloadLabel () {
+            return this.reloadAutomatically ? 'Log is reloaded automatically' : 'You have to reload manually'
+        },
     },
 
     async mounted () {
         this.activeLog = await findLogById(this.$route.params.logId)
-
-        if (this.activeLog.isRemote) {
-            this.logPath = await createDummyLocalFile(this.activeLog)
-        } else {
-            this.logPath = this.activeLog.path
-        }
+        await this.updateContent()
 
         const that = this
-        that.refreshIntervalId = setInterval(function () {
-            that.activeLogContent = getLogContent(that.logPath)
-            that.checkScrolling()
-        }, 1000)
+        that.refreshIntervalId = setInterval(async function () {
+            if (that.reloadAutomatically) {
+                await that.updateContent()
+                that.checkScrolling()
+            }
+        }, 5000)
     },
 
     methods: {
         goBack () {
-            if (this.activeLog.isRemote) {
+            if (this.activeLog.isRemote && this.logPath.length) {
                 removeDummyLocalFile(this.logPath)
             }
 
@@ -75,6 +98,22 @@ export default {
                 this.scrollToEndIsDisabled = false
             }
         },
+
+        async updateContent () {
+            if (this.activeLog.isRemote) {
+                this.logPath = await createDummyLocalFile(this.activeLog)
+            } else {
+                this.logPath = this.activeLog.path
+            }
+
+            this.activeLogContent = getLogContent(this.logPath)
+        },
     },
 }
 </script>
+
+<style>
+    .v-input--selection-controls {
+        margin: 0 !important;
+    }
+</style>

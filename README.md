@@ -15,6 +15,7 @@
 - Settings page
     - Show logfile name or full path
     - Custom color highlighting
+- Reload current watched log file automatically or manually
 
 ### Requirements
 - rsync for remote log files (because log files are copied)

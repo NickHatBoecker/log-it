@@ -2,7 +2,7 @@ import store from '../store.js'
 import { remote } from 'electron'
 
 const LineByLine = require('n-readlines')
-const exec = require('child_process').exec
+const execSync = require('child_process').execSync
 const fs = require('fs')
 
 const DUMMY_PATH = remote.app.getPath('temp')
@@ -40,8 +40,11 @@ export const getContent = (logPath) => {
 
 export const createDummyLocalFile = async (log) => {
     const dummyFilePath = `${DUMMY_PATH}${Date.now()}_${hashCode(log.path)}.log`
+    if (fs.existsSync(dummyFilePath)) {
+        removeDummyLocalFile(dummyFilePath)
+    }
 
-    await exec(`rsync -avzh --progress ${log.server}:${log.path} ${dummyFilePath}`)
+    execSync(`rsync -avzh --progress ${log.server}:${log.path} ${dummyFilePath}`)
 
     return dummyFilePath
 }
