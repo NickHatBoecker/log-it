@@ -1,8 +1,29 @@
-# log-it
+# Log-it!
 
-> Log viewer
+> Log-it! is a log viewer for local and remote log files built with electron-vue.
 
-#### Build Setup
+### Features
+- Add local or remote log files to watch
+- Remove log files
+- Reload current watched log file in real time
+- Filter added log files
+
+### More coming soon
+- Detect and alert about new lines/errors
+- Clear log files
+- Color highlighting (Violets are blue, errors are red...)
+- Settings page
+    - Show logfile name or full path
+    - Custom color highlighting
+
+### Requirements
+- rsync for remote log files (because log files are copied)
+- ssh access to remote log files
+
+### Install
+@TODO
+
+### Build Setup
 
 ``` bash
 # install dependencies
