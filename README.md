@@ -5,17 +5,16 @@
 ### Features
 - Add local or remote log files to watch
 - Remove log files
-- Reload current watched log file in real time
+- Reload current watched log file automatically or manually
 - Filter added log files
+- Color highlighting (Violets are blue, errors are red...)
 
 ### More coming soon
 - Detect and alert about new lines/errors
 - Clear log files
-- Color highlighting (Violets are blue, errors are red...)
 - Settings page
     - Show logfile name or full path
-    - Custom color highlighting
-- Reload current watched log file automatically or manually
+    - Toggle color highlighting
 
 ### Requirements
 - rsync for remote log files (because log files are copied)

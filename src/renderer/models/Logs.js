@@ -30,7 +30,7 @@ export const getContent = (logPath) => {
     let line = liner.next()
     let i = 1
     while (line) {
-        lines.push({ number: i, line: line })
+        lines.push({ number: i, line: line, color: getLineColor(line) })
         i += 1
         line = liner.next()
     }
@@ -53,6 +53,28 @@ export const removeDummyLocalFile = (dummyPath) => {
     fs.unlinkSync(dummyPath)
 }
 
-export const hashCode = (string) => {
+const getLineColor = (line) => {
+    if (!store.getters.settings.highlightColor) {
+        return 'default'
+    }
+
+    const isError = /(error|Could not|failed|critical)/gi
+    const isInfo = /(info|notice)/gi
+    const isWarning = /(warning|warn)/gi
+
+    if (isError.exec(line)) {
+        return 'danger'
+    }
+    if (isInfo.exec(line)) {
+        return 'info'
+    }
+    if (isWarning.exec(line)) {
+        return 'warning'
+    }
+
+    return 'default'
+}
+
+const hashCode = (string) => {
     return string.split('').reduce((prevHash, currVal) => (((prevHash << 5) - prevHash) + currVal.charCodeAt(0)) | 0, 0)
 }

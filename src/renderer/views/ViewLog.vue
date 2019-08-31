@@ -30,7 +30,7 @@
                 <table class="c-log u-mt" @scroll="checkScrolling" ref="logContent">
                     <tr v-for="line in activeLogContent" :key="line.number">
                         <td valign="top" class="u-pt--double u-pr">{{ line.number }}</td>
-                        <td><pre>{{ line.line }}</pre></td>
+                        <td><pre :class="`u-c--${line.color}`">{{ line.line }}</pre></td>
                     </tr>
                 </table>
             </template>

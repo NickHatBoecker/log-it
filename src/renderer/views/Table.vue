@@ -126,4 +126,16 @@ pre {
 .u-mt--medium {
     margin-top: $spacing-unit*3;
 }
+
+.u-c--danger {
+    color: red;
+}
+
+.u-c--info {
+    color: lightblue;
+}
+
+.u-c--warning {
+    color: orange;
+}
 </style>
