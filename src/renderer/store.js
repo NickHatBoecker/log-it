@@ -33,8 +33,11 @@ const store = new Vuex.Store({
             Vue.delete(state.logs, index)
         },
 
-        addLog (state, log) {
-            Vue.set(state.logs, state.logs.length, log)
+        setLogs (state, logs) {
+            Vue.set(state, 'logs', logs)
+            for (let i = 0; i < logs.length; i += 1) {
+                Vue.set(state.logs, i, logs[i])
+            }
         },
 
         setSettings (state, settings) {

@@ -94,10 +94,16 @@
                     return
                 }
 
-                this.$store.commit('addLog', this.createLogObject())
+                try {
+                    const logs = this.$store.getters.logs || []
+                    logs.push(this.createLogObject())
+                    this.$store.commit('setLogs', logs)
 
-                this.reset()
-                this.$emit('save')
+                    this.reset()
+                    this.$emit('save')
+                } catch (e) {
+                    alert(e)
+                }
             },
 
             createLogObject () {
