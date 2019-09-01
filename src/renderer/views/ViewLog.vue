@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { clear as clearLog, createDummyLocalFile, findById as findLogById, getContent as getLogContent, removeDummyLocalFile } from '../models/Logs.js'
+import { clear as clearLog, clearLogs, createDummyLocalFile, findById as findLogById, getContent as getLogContent } from '../models/Logs.js'
 
 export default {
     name: 'ViewLog',
@@ -73,8 +73,8 @@ export default {
     },
 
     beforeRouteLeave (to, from, next) {
-        if (this.activeLog.isRemote && this.logPath.length) {
-            removeDummyLocalFile(this.logPath)
+        if (this.activeLog.isRemote) {
+            clearLogs()
         }
 
         // Otherwise app tries to open log even on table view

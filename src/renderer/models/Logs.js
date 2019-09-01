@@ -39,18 +39,13 @@ export const getContent = (logPath) => {
 }
 
 export const createDummyLocalFile = async (log) => {
+    clearLogs()
+
     const dummyFilePath = `${DUMMY_PATH}${Date.now()}_${hashCode(log.path)}.log`
-    if (fs.existsSync(dummyFilePath)) {
-        removeDummyLocalFile(dummyFilePath)
-    }
 
     execSync(`rsync -avzh --progress ${log.server}:${log.path} ${dummyFilePath}`)
 
     return dummyFilePath
-}
-
-export const removeDummyLocalFile = (dummyPath) => {
-    fs.unlinkSync(dummyPath)
 }
 
 export const getPathForOutput = (logPath) => {
@@ -71,6 +66,10 @@ export const clear = async (logPath) => {
 
 export const hashCode = (string) => {
     return string.split('').reduce((prevHash, currVal) => (((prevHash << 5) - prevHash) + currVal.charCodeAt(0)) | 0, 0)
+}
+
+export const clearLogs = () => {
+    execSync(`rm ${DUMMY_PATH}*.log`)
 }
 
 const getLineColor = (line) => {
