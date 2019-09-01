@@ -90,11 +90,7 @@ export default {
 
         checkScrolling () {
             const logContent = this.$refs.logContent
-            if (logContent.scrollTop + logContent.clientHeight >= logContent.scrollHeight) {
-                this.scrollToEndIsDisabled = true
-            } else {
-                this.scrollToEndIsDisabled = false
-            }
+            this.scrollToEndIsDisabled = (logContent.scrollTop + logContent.clientHeight >= logContent.scrollHeight)
         },
 
         async updateContent () {
