@@ -9,12 +9,12 @@
 - Filter added log files
 - Color highlighting (Violets are blue, errors are red...)
 - Clear local log files
-
-### More coming soon
-- Detect and alert about new lines/errors
 - Settings page
     - Show logfile name or full path
     - Toggle color highlighting
+
+### More coming soon
+- Detect and alert about new lines/errors
 
 ### Requirements
 - rsync for remote log files (because log files are copied)

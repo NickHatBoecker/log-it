@@ -7,10 +7,6 @@ import router from './router'
 import store from './store.js'
 import vuetify from './plugins/vuetify.js'
 
-store.subscribe((mutation, state) => {
-    localStorage.setItem('logs', JSON.stringify(state.logs))
-})
-
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 Vue.http = Vue.prototype.$http = axios
 Vue.config.productionTip = false

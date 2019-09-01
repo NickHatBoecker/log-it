@@ -6,7 +6,7 @@
                     Log-it!
                 </v-toolbar-title>
                 <v-spacer></v-spacer>
-                <v-btn icon>
+                <v-btn icon @click="openSettings">
                     <v-icon>settings</v-icon>
                 </v-btn>
             </v-toolbar>
@@ -19,6 +19,12 @@
 <script>
     export default {
         name: 'log-it',
+
+        methods: {
+            openSettings () {
+                this.$router.push({ path: `/settings` })
+            },
+        },
     }
 </script>
 

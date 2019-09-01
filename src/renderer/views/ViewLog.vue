@@ -72,15 +72,19 @@ export default {
         }, 5000)
     },
 
+    beforeRouteLeave (to, from, next) {
+        if (this.activeLog.isRemote && this.logPath.length) {
+            removeDummyLocalFile(this.logPath)
+        }
+
+        // Otherwise app tries to open log even on table view
+        clearInterval(this.refreshIntervalId)
+
+        next()
+    },
+
     methods: {
         goBack () {
-            if (this.activeLog.isRemote && this.logPath.length) {
-                removeDummyLocalFile(this.logPath)
-            }
-
-            // Otherwise app tries to open log even on table view
-            clearInterval(this.refreshIntervalId)
-
             this.$router.push({ path: `/` })
         },
 

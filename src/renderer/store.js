@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
     state: {
         logs: [],
         settings: {
@@ -43,3 +43,14 @@ export default new Vuex.Store({
         settings: state => state.settings,
     },
 })
+
+store.subscribe((mutation, state) => {
+    if (mutation.type === 'initialiseStore' || mutation.type.includes('load')) {
+        return
+    }
+
+    localStorage.setItem('logs', JSON.stringify(state.logs))
+    localStorage.setItem('settings', JSON.stringify(state.settings))
+})
+
+export default store

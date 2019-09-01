@@ -11,6 +11,11 @@ export default new Router({
             component: require('@/views/Table').default,
         },
         {
+            path: '/settings',
+            name: 'settings',
+            component: require('@/views/Settings').default,
+        },
+        {
             path: '/log/:logId',
             name: 'view_log',
             component: require('@/views/ViewLog').default,
