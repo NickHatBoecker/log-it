@@ -21,7 +21,7 @@
             <tr v-for="log in filteredLogs" :key="log.name">
                 <td>{{ log.name }}</td>
                 <td>{{ log.server }}</td>
-                <td>{{ log.path }}</td>
+                <td>{{ getPathForOutput(log.path) }}</td>
                 <td class="c-logs__actions">
                     <v-btn
                         color="primary"
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { removeLog } from '../models/Logs.js'
+import { getPathForOutput, removeLog } from '../models/Logs.js'
 
 export default {
     name: 'Table',
@@ -61,6 +61,7 @@ export default {
     },
 
     methods: {
+        getPathForOutput,
         removeLog,
 
         openLog (log) {

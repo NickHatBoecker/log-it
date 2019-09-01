@@ -8,6 +8,7 @@ export default new Vuex.Store({
         logs: [],
         settings: {
             'highlightColor': true,
+            'showFullLogPath': false,
         },
     },
 

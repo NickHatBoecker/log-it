@@ -53,6 +53,22 @@ export const removeDummyLocalFile = (dummyPath) => {
     fs.unlinkSync(dummyPath)
 }
 
+export const getPathForOutput = (logPath) => {
+    if (store.getters.settings.showFullLogPath) {
+        return logPath
+    }
+
+    return logPath.split('/').pop()
+}
+
+export const clear = async (logPath) => {
+    if (!logPath.length) {
+        return
+    }
+
+    await fs.truncateSync(logPath, 0)
+}
+
 const getLineColor = (line) => {
     if (!store.getters.settings.highlightColor) {
         return 'default'

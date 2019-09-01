@@ -8,10 +8,10 @@
 - Reload current watched log file automatically or manually
 - Filter added log files
 - Color highlighting (Violets are blue, errors are red...)
+- Clear local log files
 
 ### More coming soon
 - Detect and alert about new lines/errors
-- Clear log files
 - Settings page
     - Show logfile name or full path
     - Toggle color highlighting

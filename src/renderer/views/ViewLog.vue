@@ -2,8 +2,8 @@
     <div class="u-mt--medium">
         <v-container>
             <v-row no-gutters>
-                <v-col md="3">
-                    <v-btn color="primary" small class="u-mb--medium" @click="goBack()"><v-icon small>mdi-arrow-left</v-icon> Go back</v-btn>
+                <v-col md="7">
+                    <v-btn color="primary" small class="u-mb--medium" @click="goBack"><v-icon small left>mdi-arrow-left</v-icon> Go back</v-btn>
                     <v-btn
                         color="info"
                         small
@@ -13,14 +13,18 @@
                         :disabled="scrollToEndIsDisabled"
                         v-if="activeLog"
                     >
-                        <v-icon small>mdi-arrow-down</v-icon> Go to end
+                        <v-icon small left>mdi-arrow-down</v-icon> Go to end
+                    </v-btn>
+                    <v-btn color="primary" small class="u-mb--medium" @click="updateContent" title="Reload"><v-icon small>mdi-reload</v-icon></v-btn>
+                    <v-btn color="red" dark small class="u-mb--medium" @click="clear" title="Clear" v-if="!activeLog.isRemote">
+                        <v-icon small>mdi-close-circle</v-icon>
                     </v-btn>
                 </v-col>
                 <v-col>
                     <v-switch
                         v-model="reloadAutomatically"
                         color="primary"
-                        :label="reloadLabel"
+                        label="Reload automatically"
                     ></v-switch>
                 </v-col>
             </v-row>
@@ -39,7 +43,7 @@
 </template>
 
 <script>
-import { createDummyLocalFile, findById as findLogById, getContent as getLogContent, removeDummyLocalFile } from '../models/Logs.js'
+import { clear as clearLog, createDummyLocalFile, findById as findLogById, getContent as getLogContent, removeDummyLocalFile } from '../models/Logs.js'
 
 export default {
     name: 'ViewLog',
@@ -53,12 +57,6 @@ export default {
             refreshIntervalId: '',
             reloadAutomatically: true,
         }
-    },
-
-    computed: {
-        reloadLabel () {
-            return this.reloadAutomatically ? 'Log is reloaded automatically' : 'You have to reload manually'
-        },
     },
 
     async mounted () {
@@ -107,6 +105,11 @@ export default {
             }
 
             this.activeLogContent = getLogContent(this.logPath)
+        },
+
+        async clear () {
+            await clearLog(this.logPath)
+            this.updateContent()
         },
     },
 }
