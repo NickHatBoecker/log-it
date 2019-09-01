@@ -69,7 +69,11 @@ export const hashCode = (string) => {
 }
 
 export const clearLogs = () => {
-    execSync(`rm ${DUMMY_PATH}*.log`)
+    try {
+        execSync(`rm ${DUMMY_PATH}*.log 2> /dev/null`)
+    } catch (e) {
+        // Do nothing
+    }
 }
 
 const getLineColor = (line) => {

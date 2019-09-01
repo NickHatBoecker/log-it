@@ -98,10 +98,12 @@ export default {
         },
 
         async updateContent () {
-            if (this.activeLog.isRemote) {
-                this.logPath = await createDummyLocalFile(this.activeLog)
-            } else {
-                this.logPath = this.activeLog.path
+            if (!this.logPath.length) {
+                if (this.activeLog.isRemote) {
+                    this.logPath = await createDummyLocalFile(this.activeLog)
+                } else {
+                    this.logPath = this.activeLog.path
+                }
             }
 
             try {
