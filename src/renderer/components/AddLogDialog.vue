@@ -12,25 +12,22 @@
                 </v-toolbar-items>
             </v-toolbar>
             <v-container>
-                <v-form v-model="formIsValid">
+                <v-form>
                     <v-text-field
                             v-model="formLogname"
                             label="Log name"
                             placeholder="e.g. domain.test"
-                            :rules="formRules"
                             required
                     ></v-text-field>
                     <v-text-field
                             v-model="formServername"
                             label="Server name (SSH host for remote log files)"
-                            :rules="formRules"
                             required
                     ></v-text-field>
                     <v-text-field
                             v-model="formLogpath"
                             label="Log path"
                             placeholder="/var/www/apache2/error_log"
-                            :rules="formRules"
                             required
                     ></v-text-field>
                     <v-checkbox
@@ -59,16 +56,10 @@
 
         data () {
             return {
-                formIsValid: false,
-
                 formLogname: '',
                 formServername: 'localhost',
                 formLogpath: '',
                 formIsRemote: false,
-
-                formRules: [
-                    v => !!v || 'Field is required',
-                ],
             }
         },
 

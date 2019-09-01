@@ -104,7 +104,11 @@ export default {
                 this.logPath = this.activeLog.path
             }
 
-            this.activeLogContent = getLogContent(this.logPath)
+            try {
+                this.activeLogContent = getLogContent(this.logPath)
+            } catch (e) {
+                alert(e)
+            }
         },
 
         async clear () {
