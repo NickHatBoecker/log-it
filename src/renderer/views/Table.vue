@@ -34,19 +34,34 @@
             </tr>
             </tbody>
         </v-simple-table>
+
+        <v-btn fab right bottom fixed color="primary" title="Add log" @click="showAddLogModal = true">
+            <v-icon dark>mdi-plus</v-icon>
+        </v-btn>
+
+        <add-log-dialog
+            :showModal="showAddLogModal"
+            @close="showAddLogModal = false"
+            @save="showAddLogModal = false"
+        ></add-log-dialog>
     </div>
 </template>
 
 <script>
 import { getPathForOutput, removeLog } from '../models/Logs.js'
+import AddLogDialog from '../components/AddLogDialog'
 
 export default {
     name: 'Table',
+
+    components: { AddLogDialog },
 
     data: function () {
         return {
             logs: this.$store.getters.logs,
             searchTerm: '',
+
+            showAddLogModal: false,
         }
     },
 

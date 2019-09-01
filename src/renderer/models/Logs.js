@@ -69,6 +69,10 @@ export const clear = async (logPath) => {
     await fs.truncateSync(logPath, 0)
 }
 
+export const hashCode = (string) => {
+    return string.split('').reduce((prevHash, currVal) => (((prevHash << 5) - prevHash) + currVal.charCodeAt(0)) | 0, 0)
+}
+
 const getLineColor = (line) => {
     if (!store.getters.settings.highlightColor) {
         return 'default'
@@ -89,8 +93,4 @@ const getLineColor = (line) => {
     }
 
     return 'default'
-}
-
-const hashCode = (string) => {
-    return string.split('').reduce((prevHash, currVal) => (((prevHash << 5) - prevHash) + currVal.charCodeAt(0)) | 0, 0)
 }
