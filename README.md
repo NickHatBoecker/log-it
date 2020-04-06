@@ -15,6 +15,8 @@
 
 ### More coming soon
 - Detect and alert about new lines/errors
+- Tail logs instead of full files
+- Configure tail start on settings page
 
 ### Requirements
 - rsync for remote log files (because log files are copied)
